@@ -1,17 +1,31 @@
 <script src="https://giscus.app/client.js" 
-        data-repo="{{ .Site.Params.comments.giscus.repo }}"
-        data-repo-id="{{ .Site.Params.comments.giscus.id }}"
-        {{ with .Site.Params.comments.giscus.category }}
+        {{ with .Site.Params.comments.giscus }}
+
+        {{ with .repo }}
+        data-repo="{{ .name }}"
+        data-repo-id="{{ .id }}"
+        {{ end }}
+
+        {{ with .category }}
         data-category="{{ .name }}"
         data-category-id="{{ .id }}"
         {{ end }}
-        data-mapping="{{ .Site.Params.comments.giscus.mapping | default "pathname" }}"
-        data-reactions-enabled="{{ .Site.Params.comments.giscus.reactionsEnabled | default 1 }}"
-        data-emit-metadata="{{ .Site.Params.comments.giscus.emitMetadata | default 0 }}"
-        data-theme="light"
+        
+        data-mapping="{{ .mapping | default "pathname" }}"
+        data-reactions-enabled="{{ .reactionsEnabled | default 1 }}"
+        data-emit-metadata="{{ .emitMetadata | default 0 }}"
+        data-theme="{{ .theme | default "preferred_color_scheme" }}"
+        data-lang="{{ .lang | default "zh-CN" }}"
+
+        {{ if .lazyLoading }}
+        data-loading="lazy"
+        {{ end }}
+        
         crossorigin="anonymous"
         async
+        {{ end }}
         >
+        
 </script>
 
 <script>
